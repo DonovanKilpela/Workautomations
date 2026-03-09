@@ -22,25 +22,13 @@ Future additions may include:
 
 ## 🧩 Technologies Used
 
-- **Python 3.x**
+- **Python 3.12.10
 - Standard libraries like:
-  - `os`, `pathlib` — for file handling  
-  - `pandas` — for data structuring (planned)  
-  - `datetime` — for simple timestamping tasks  
+  - `customtkinter`, — for creating a modern GUI for input and output  
 
 ---
 
 ## 💡 Example Use Case
 
-**markdown_table_generator.py**  
-Creates Markdown-formatted tables automatically based on input data — helpful for documenting data or creating quick README sections.
-
-Example:
-
-Input:
-```python
-headers = ["Name", "Role", "Department"]
-rows = [
-    ["Alice", "Analyst", "Finance"],
-    ["Bob", "Manager", "Operations"]
-]
+**auto_markdown.py**  
+Creates Markdown-formatted tables automatically based on input data
