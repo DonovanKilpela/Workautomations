@@ -78,7 +78,7 @@ def main():
     people_title.grid(row=0, column=0, columnspan=4, sticky="w", pady=(5, 10), padx=5)
 
     # Header labels
-    headers = ["Login", "Cohort", "Manager", "Permission"]
+    headers = ["Permission", "Manager", "Cohort", "Home Area", "Login"]
     for col, text in enumerate(headers):
         lbl = ctk.CTkLabel(
             people_frame, text=text, font=ctk.CTkFont(size=13, weight="bold")
@@ -95,21 +95,24 @@ def main():
     def add_person_row():
         row_index = len(perm_person_rows) + 2  # 0 is title, 1 is header row
 
-        login_entry = ctk.CTkEntry(people_frame, placeholder_text="Login")
-        login_entry.grid(row=row_index, column=0, padx=4, pady=4, sticky="ew")
-
-        cohort_entry = ctk.CTkEntry(people_frame, placeholder_text="Cohort")
-        cohort_entry.grid(row=row_index, column=1, padx=4, pady=4, sticky="ew")  
+        permission_entry = ctk.CTkEntry(people_frame, placeholder_text="Permission")
+        permission_entry.grid(row=row_index, column=0, padx=4, pady=4, sticky="ew")
 
         manager_entry = ctk.CTkEntry(people_frame, placeholder_text="Manager")
-        manager_entry.grid(row=row_index, column=2, padx=4, pady=4, sticky="ew")
+        manager_entry.grid(row=row_index, column=1, padx=4, pady=4, sticky="ew")
+        
+        cohort_entry = ctk.CTkEntry(people_frame, placeholder_text="Cohort")
+        cohort_entry.grid(row=row_index, column=2, padx=4, pady=4, sticky="ew")  
 
-        permission_entry = ctk.CTkEntry(people_frame, placeholder_text="Permission")
-        permission_entry.grid(row=row_index, column=3, padx=4, pady=4, sticky="ew")
+        home_area_entry = ctk.CTkEntry(people_frame, placeholder_text="Home Area")
+        home_area_entry.grid(row=row_index, column=3, padx=4, pady=4, sticky="ew")
+
+        login_entry = ctk.CTkEntry(people_frame, placeholder_text="Login")
+        login_entry.grid(row=row_index, column=4, padx=4, pady=4, sticky="ew")
 
         # Store entries as a tuple in the list
         perm_person_rows.append(
-            (permission_entry, login_entry, cohort_entry, manager_entry)
+            (permission_entry, manager_entry, cohort_entry, home_area_entry, login_entry)
         )
 
     mode_frames["Permissions Lost"] = perm_frame
@@ -195,21 +198,22 @@ def main():
     # =======================================================
     def generate_permissions_lost():
         lines = [
-            "| Permission | Login | Cohort | Manager |",
-            "|------------|-------|--------|---------|",
+            "| Permission | Manager | Cohort | Home Area | Login |",
+            "|------------|---------|--------|-----------|-------|",
         ]
 
-        for permission_entry, login_entry, cohort_entry, manager_entry in perm_person_rows:
+        for permission_entry, manager_entry, cohort_entry, home_area_entry, login_entry in perm_person_rows:
             permission = permission_entry.get().strip()
-            login = login_entry.get().strip()
-            cohort = cohort_entry.get().strip()
             manager = manager_entry.get().strip()
+            cohort = cohort_entry.get().strip()
+            home_area = home_area_entry.get().strip()
+            login = login_entry.get().strip()
 
             # Skip blank rows
-            if not (permission or cohort or login or manager):
+            if not (permission or cohort or login or manager or home_area):
                 continue
 
-            lines.append(f"| {permission} | {login} | {cohort} | {manager} |")
+            lines.append(f"| {permission} | {manager} | {cohort} | {home_area} | {login} |")
 
         return "\n".join(lines)
 
