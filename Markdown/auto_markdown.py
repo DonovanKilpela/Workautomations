@@ -130,7 +130,7 @@ def main():
     )
     ct_title.grid(row=0, column=0, columnspan=4, sticky="w", pady=(5, 10), padx=5)
 
-    ct_headers = ["Home Area", "Login", "Manager", "Cohort", "Cross Train Department"]
+    ct_headers = ["Name", "Login", "Home Cohort", "Home Process", "Manager", "Training Process"]
     for col, text in enumerate(ct_headers):
         lbl = ctk.CTkLabel(
             ct_frame, text=text, font=ctk.CTkFont(size=13, weight="bold")
@@ -145,22 +145,25 @@ def main():
     def add_ct_row():
         row_index = len(ct_rows) + 2
 
-        home_area_entry = ctk.CTkEntry(ct_frame, placeholder_text="Home Area")
-        home_area_entry.grid(row=row_index, column=0, padx=4, pady=4, sticky="ew")
+        name_entry = ctk.CTkEntry(ct_frame, placeholder_text="Name")
+        name_entry.grid(row=row_index, column=0, padx=4, pady=4, sticky="ew")
 
         login_entry = ctk.CTkEntry(ct_frame, placeholder_text="Login")
         login_entry.grid(row=row_index, column=1, padx=4, pady=4, sticky="ew")
 
+        home_cohort_entry = ctk.CTkEntry(ct_frame, placeholder_text="Home Cohort")
+        home_cohort_entry.grid(row=row_index, column=2, padx=4, pady=4, sticky="ew")
+
+        home_process_entry = ctk.CTkEntry(ct_frame, placeholder_text="Home Process")
+        home_process_entry.grid(row=row_index, column=3, padx=4, pady=4, sticky="ew")
+
         manager_entry = ctk.CTkEntry(ct_frame, placeholder_text="Manager")
-        manager_entry.grid(row=row_index, column=2, padx=4, pady=4, sticky="ew")
+        manager_entry.grid(row=row_index, column=4, padx=4, pady=4, sticky="ew")
 
-        cohort_entry = ctk.CTkEntry(ct_frame, placeholder_text="Cohort")
-        cohort_entry.grid(row=row_index, column=3, padx=2, pady=2, sticky="ew")
+        training_process_entry = ctk.CTkEntry(ct_frame, placeholder_text="Training Process")
+        training_process_entry.grid(row=row_index, column=5, padx=4, pady=4, sticky="ew")
 
-        xt_department_entry = ctk.CTkEntry(ct_frame, placeholder_text="Cross Train Department")
-        xt_department_entry.grid(row=row_index, column=4, padx=4, pady=4, sticky="ew")
-
-        ct_rows.append((home_area_entry, login_entry, manager_entry, cohort_entry, xt_department_entry))
+        ct_rows.append((name_entry, login_entry, home_cohort_entry, home_process_entry, manager_entry, training_process_entry))
 
     mode_frames["Cross Train Tickets"] = ct_frame
 
@@ -219,21 +222,23 @@ def main():
 
     def generate_cross_train():
         lines = [
-            "| Home Area | Login | Manager | Cohort | Cross Train Department |",
-            "|-----------|-------|---------|--------|------------------------|",
+            "| Name | login | Home Cohort | Home Process | Manager | Training Process |",
+            "|------|-------|-------------|--------------|---------|------------------|",
         ]
 
-        for home_area_entry, login_entry, manager_entry, cohort_entry, xt_department_enrty in ct_rows:
-            home_area = home_area_entry.get().strip()
+        for name_entry, login_entry, home_cohort_entry, home_process_entry, manager_entry, training_process_entry in ct_rows:
+            name = name_entry.get().strip()
             login = login_entry.get().strip()
+            home_cohort = home_cohort_entry.get().strip()
+            home_process = home_process_entry.get().strip()
             manager = manager_entry.get().strip()
-            cohort = cohort_entry.get().strip()
-            xt_department = xt_department_enrty.get().strip()
+            training_process = training_process_entry.get().strip()
+            
 
-            if not (home_area or login or manager or cohort or xt_department):
+            if not (name or login or home_cohort or home_process or manager or training_process):
                 continue
 
-            lines.append(f"| {home_area} | {login} | {manager} | {cohort} | {xt_department} |")
+            lines.append(f"| {name} | {login} | {home_cohort} | {home_process} | {manager} | {training_process} |")
 
         return "\n".join(lines)
 
@@ -267,7 +272,7 @@ def main():
 
     add_button = ctk.CTkButton(
         buttons_frame,
-        text="Add Row",
+        text="Add Associate",
         command=add_row_for_current_mode,
     )
     add_button.grid(row=0, column=0, padx=5, pady=8, sticky="ew")
